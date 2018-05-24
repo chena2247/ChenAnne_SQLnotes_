@@ -41,6 +41,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean insertData(String s) {
-
     }
 }
+
