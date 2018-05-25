@@ -3,8 +3,10 @@ package com.example.chena2247.mycontactapp_p1_attempt3;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.database.Cursor;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -13,14 +15,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_NAME = "Contact2-2018_table";
     public static final String ID = "ID";
     public static final String COLUMN_NAME_CONTACT = "contact";
+    //start of new stuff
+    public static final String COLUMN_PHONE_CONTACT = "contact";
+    public static final String COLUMN_ADDRESS_CONTACT = "contact";
+    //end new stuff
 
     public static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE" + TABLE_NAME + " (" +
+            "CREATE TABLE " + TABLE_NAME + " (" +
                     ID + " INTEGER PRIMARY KEY AUTOINCREMENT." +
-                    COLUMN_NAME_CONTACT + " TEXT)";
+                    COLUMN_NAME_CONTACT + " TEXT)" + " (" +
+                    ID + " INTEGER PRIMARY KEY AUTOINCREMENT." +
+                    COLUMN_PHONE_CONTACT + " TEXT)" + " (" +
+                    ID + " INTEGER PRIMARY KEY AUTOINCREMENT." +
+                    COLUMN_ADDRESS_CONTACT + " TEXT)";
 
     public static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS" + TABLE_NAME;
+            "DROP TABLE IF EXISTS " + TABLE_NAME;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME,null, DATABASE_VERSION);
@@ -41,11 +51,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String name) {
+    public boolean insertData(String name, String phone, String address) {
         Log.d ("MyContactApp", "DatabaseHelper: inserting data");
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_NAME_CONTACT, name);
+
+        //new stuff
+        contentValues.put(COLUMN_PHONE_CONTACT, phone);
+        contentValues.put(COLUMN_ADDRESS_CONTACT, address);
+
         long result = db.insert(TABLE_NAME, null, contentValues);
 
         if (result == -1) {
@@ -57,6 +72,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
         }
 
+    }
+
+    public Cursor getAllData() {
+        Log.d("MyContactApp", "DatabaseHelper: calling getAllData method");
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from " + TABLE_NAME, null);
+        return res;
     }
 }
 
