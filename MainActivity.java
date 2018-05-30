@@ -1,5 +1,6 @@
 package com.example.chena2247.mycontactapp_p1_attempt3;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +14,6 @@ public class MainActivity extends AppCompatActivity {
 
     DatabaseHelper myDb;
     EditText editName;
-
     EditText editPhone;
     EditText editAddress;
 
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         editName = findViewById(R.id.editText_name);
         editPhone = findViewById(R.id.editText_phone);
-        editAddress = findViewById(R.id.editText_phone);
+        editAddress = findViewById(R.id.editText_address);
 
         myDb = new DatabaseHelper(this);
         Log.d("MyContactApp", "MainActivity: instantiated DatabaseHelper");
@@ -69,6 +69,14 @@ public class MainActivity extends AppCompatActivity {
         builder.setTitle(title);
         builder.setMessage(message);
         builder.show();
+    }
+
+    public static final String EXTRA_MESSAGE = "com.example.chena2247.mycontactapp_p1_attempt3.MESSAGE";
+    public void SearchRecord(View view) {
+        Log.d("MyContactApp", "MainActivity: launching SearchActivity");
+        Intent intent = new Intent(this, SearchActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, editName.getText().toString());
+        startActivity(intent);
     }
 }
 
