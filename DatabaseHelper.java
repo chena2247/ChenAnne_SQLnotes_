@@ -11,23 +11,19 @@ import android.database.Cursor;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "Contact2-2018.db";
-    public static final String TABLE_NAME = "Contact2-2018_table";
+    public static final String DATABASE_NAME = "Contact-2018.db";
+    public static final String TABLE_NAME = "Contact2018Table";
     public static final String ID = "ID";
-    public static final String COLUMN_NAME_CONTACT = "contact";
+    public static final String COLUMN_NAME_CONTACT = "Name";
     //start of new stuff
-    public static final String COLUMN_PHONE_CONTACT = "contact";
-    public static final String COLUMN_ADDRESS_CONTACT = "contact";
+    public static final String COLUMN_PHONE_CONTACT = "Phone";
+    public static final String COLUMN_ADDRESS_CONTACT = "Address";
     //end new stuff
 
     public static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + TABLE_NAME + " (" +
-                    ID + " INTEGER PRIMARY KEY AUTOINCREMENT." +
-                    COLUMN_NAME_CONTACT + " TEXT)" + " (" +
-                    ID + " INTEGER PRIMARY KEY AUTOINCREMENT." +
-                    COLUMN_PHONE_CONTACT + " TEXT)" + " (" +
-                    ID + " INTEGER PRIMARY KEY AUTOINCREMENT." +
-                    COLUMN_ADDRESS_CONTACT + " TEXT)";
+                    ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    COLUMN_NAME_CONTACT + ", " + COLUMN_PHONE_CONTACT + ", " + COLUMN_ADDRESS_CONTACT + " TEXT)";
 
     public static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + TABLE_NAME;

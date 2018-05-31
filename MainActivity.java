@@ -50,11 +50,16 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MyContactApp", "MainActivity: viewData: received cursor" + res.getCount());
         if (res.getCount()==0) {
             showMessage("Error", "No data found in the database");
+            return;
         }
 
         StringBuffer buffer = new StringBuffer();
         while (res.moveToNext()){
             //Append res column 0,1,2,3 to the buffer, delimited by "\n"
+            for (int x=0; x<4; x++) {
+                buffer.append(res.getColumnName(x) + ": " + res.getString(x) + "\n");
+            }
+            buffer.append("\n");
 
         }
         Log.d("MyContactApp", "MainActivity: viewData: assembled stringbuffer");
@@ -75,8 +80,31 @@ public class MainActivity extends AppCompatActivity {
     public void SearchRecord(View view) {
         Log.d("MyContactApp", "MainActivity: launching SearchActivity");
         Intent intent = new Intent(this, SearchActivity.class);
-        intent.putExtra(EXTRA_MESSAGE, editName.getText().toString());
+        intent.putExtra(EXTRA_MESSAGE, RetrieveRecord());
         startActivity(intent);
+    }
+
+    public String RetrieveRecord(){
+        Cursor res = myDb.getAllData();
+        Log.d("MyContactApp", "MainActivity: retrieving records");
+        StringBuffer buffer = new StringBuffer();
+        int count = 0;
+        while (res.moveToNext()) {
+            if (res.getString(1).equals(editName.getText().toString())) {
+                for (int i=1; i<4;i++) {
+                    buffer.append(res.getColumnName(i) + ": " + res.getString(i) + "\n");
+                }
+                buffer.append("\n");
+                count++;
+            }
+
+        }
+        if (count == 0) {
+            return "No contact found";
+        }
+        else {
+            return buffer.toString();
+        }
     }
 }
 

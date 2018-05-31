@@ -1,7 +1,10 @@
 package com.example.chena2247.mycontactapp_p1_attempt3;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -10,10 +13,11 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        android.content.Intent intent = getIntent();
+        Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        Log.d("MyContactApp", "SearchActivity: Search for message");
 
-        android.widget.TextView textView = findViewById(R.id.textView4);
+        TextView textView = findViewById(R.id.textView4);
         textView.setText(message);
     }
 }
