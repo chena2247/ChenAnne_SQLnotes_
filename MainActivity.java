@@ -97,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
                 buffer.append("\n");
                 count++;
             }
-
         }
         if (count == 0) {
             return "No contact found";
