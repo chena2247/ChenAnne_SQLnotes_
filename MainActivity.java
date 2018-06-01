@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         int count = 0;
         while (res.moveToNext()) {
             if (res.getString(1).equals(editName.getText().toString())) {
-                for (int i=1; i<4;i++) {
+                for (int i=1; i<4; i++) {
                     buffer.append(res.getColumnName(i) + ": " + res.getString(i) + "\n");
                 }
                 buffer.append("\n");
